@@ -7,10 +7,30 @@ use Softexpert\Mercado\core\Model;
 
 class Produtos extends Model
 {
-    protected $required = ["nome", "preco", "estoque", "descricao", "categoria_id"];
+    protected $required = ["nome", "preco", "descricao", "categoria_id"];
     public function __construct()
     {
         parent::__construct($this->required);
+    }
+
+    public function categoria()
+    {
+        if ($this->categoria_id) {
+            try {
+                $cat = new Categoria();
+                $cat = $cat->findById($this->categoria_id);
+
+                if (!$cat)
+                    return false;
+
+                return $cat->getData();
+
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+
+        return null;
     }
 
     public function save()
@@ -28,11 +48,6 @@ class Produtos extends Model
         //     $this->setError("Informe um valor valido para campo preco");
         //     return false;
         // }
-
-        if ($this->estoque && !is_numeric($this->estoque)) {
-            $this->setError("Informe um valor valido para campo estoque");
-            return false;
-        }
 
         if ($this->categoria_id && !is_numeric($this->categoria_id)) {
             $this->setError("Informe um valor valido para campo categoria_id");

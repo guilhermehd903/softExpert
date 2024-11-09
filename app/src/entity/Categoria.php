@@ -3,6 +3,7 @@
 namespace Softexpert\Mercado\entity;
 
 use Exception;
+
 use Softexpert\Mercado\core\Model;
 
 class Categoria extends Model

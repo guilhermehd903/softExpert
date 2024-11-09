@@ -29,7 +29,8 @@ class Model extends Connect
         $this->error = $error;
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         try {
             $stmt = self::getInstance()->prepare("DELETE FROM {$this->entity} WHERE id = :id");
             $stmt->bindValue(":id", $id);
@@ -43,9 +44,6 @@ class Model extends Connect
 
     public function save()
     {
-        if (!$this->verify())
-            return false;
-
         try {
             $data = (array) $this->fields;
 
@@ -63,6 +61,11 @@ class Model extends Connect
 
                 return $this->findById($this->id);
             } else {
+                if ($this->verify()) {
+                    $this->setError("Informe todos os campos obrigatórios");
+                    return false;
+                }
+
                 $columns = implode(", ", array_keys($data));
                 $values = ":" . implode(", :", array_keys($data));
 
@@ -103,14 +106,14 @@ class Model extends Connect
 
     protected function verify(): bool
     {
-        $data = (array) $this->fields;
+        $data = array_filter((array) $this->fields);
         $diffs = array_diff($this->required, array_keys($data));
 
         if (empty($diffs)) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     public function getData()

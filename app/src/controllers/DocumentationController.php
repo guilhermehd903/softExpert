@@ -2,22 +2,31 @@
 
 namespace Softexpert\Mercado\controllers;
 
+use Softexpert\Mercado\core\Response;
+
 class DocumentationController
 {
+    use Response;
 
     public function __construct()
     {
-        $openapi = \OpenApi\Generator::scan([$_SERVER["DOCUMENT_ROOT"].'/app/src/entity']);
-
-        header('Content-Type: application/json');
-        echo $openapi->toJson();
+        $this->initResponse();
     }
 
     public function index()
     {
-        // $html = file_get_contents("./swagger-ui/swagger-ui-master/dist/index.html");
+        $this->render("swagger/index.html");
+    }
 
-        // echo $html;
+    public function json()
+    {
+        $openapi = \OpenApi\Generator::scan([
+            './src/entity',
+            './src/controllers'
+        ]);
+
+        header('Content-Type: application/json');
+        echo $openapi->toJson();
     }
 
     public function __destruct()

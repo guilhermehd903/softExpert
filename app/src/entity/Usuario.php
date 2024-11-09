@@ -7,7 +7,7 @@ use Softexpert\Mercado\core\Model;
 
 class Usuario extends Model
 {
-    protected $required = ["nome", "cpf", "email", "nasc", "role", "profile", "access"];
+    protected $required = ["nome", "cpf", "email", "nasc", "role", "access"];
     const ROLES = [
         "caixa",
         "admin"
@@ -60,6 +60,7 @@ class Usuario extends Model
 
     public function validate(): bool
     {
+        
         if ($this->cpf && !isCPF($this->cpf)) {
             $this->setError("CPF informado é invalido");
             return false;

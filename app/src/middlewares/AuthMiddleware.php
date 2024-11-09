@@ -5,6 +5,7 @@ namespace Softexpert\Mercado\middlewares;
 use Softexpert\Mercado\core\Jwt;
 use Softexpert\Mercado\core\Request;
 use Softexpert\Mercado\core\Response;
+use Softexpert\Mercado\entity\Usuario;
 
 class AuthMiddleware
 {
@@ -30,7 +31,15 @@ class AuthMiddleware
         if (!$validate)
             return false;
 
+        $usuario = new Usuario();
+        $usuario = $usuario->findById($validate);
+
+        if(!$usuario){
+            return false;
+        }
+
         $this->setUser($validate);
+        $this->setRole($usuario->role);
 
         return true;
     }

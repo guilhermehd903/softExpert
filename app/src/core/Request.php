@@ -3,11 +3,13 @@
 namespace Softexpert\Mercado\core;
 
 use Softexpert\Mercado\utils\Auth;
+use Softexpert\Mercado\utils\File;
 use stdClass;
 
 trait Request
 {
     public $body;
+    public $files;
 
 
     public function setUser($token)
@@ -20,6 +22,16 @@ trait Request
         return Auth::getAuth();
     }
 
+     public function setRole($role)
+    {
+        Auth::setRole($role);
+    }
+
+    public function getRole()
+    {
+        return Auth::getRole();
+    }
+
     public function initRequest()
     {
         $this->body = new stdClass();
@@ -27,6 +39,8 @@ trait Request
         if (method() != 'get') {
             $this->body = $this->getRequestData();
         }
+
+        $this->files = (new File($_FILES, $this->body))->getAll();
     }
 
     protected function getToken()

@@ -4,7 +4,17 @@ namespace Softexpert\Mercado\controllers;
 
 use Softexpert\Mercado\core\Request;
 use Softexpert\Mercado\core\Response;
-use Softexpert\Mercado\entity\Usuario;
+
+/**
+ * @OA\Info(title="API ExpertCart", version="1.0")
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="JWT",
+ *     description="Use um token JWT para autenticação"
+ * )
+ */
 
 class HomeController
 {
@@ -18,20 +28,6 @@ class HomeController
     }
     public function index(): void
     {
-        $user = new Usuario();
-        $user = $user->findById("17");
-        $user->nome = "Guiiii";
-        $user->save();
-
-        // $user->nome = "Guilherme";
-        // $user->cpf = "50306512840";
-        // $user->email = "Guilhermegdrag@gmail.com";
-        // $user->nasc = "2001-07-01";
-        // $user->role = "Guilhermegdrag@gmail.com";
-        // $user->profile = "Guilhermegdrag@gmail.com";
-
-        // $user->save();
-
-        $this->success(["name" => $user->nome]);
+        $this->success("pong");
     }
 }

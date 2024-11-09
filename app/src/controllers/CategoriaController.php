@@ -2,12 +2,11 @@
 
 namespace Softexpert\Mercado\controllers;
 
-use Softexpert\Mercado\core\Jwt;
+use OpenApi\Annotations as OA;
 use Softexpert\Mercado\core\Params;
 use Softexpert\Mercado\core\Request;
 use Softexpert\Mercado\core\Response;
 use Softexpert\Mercado\entity\Categoria;
-use Softexpert\Mercado\entity\Usuario;
 
 class CategoriaController
 {
@@ -20,6 +19,32 @@ class CategoriaController
         $this->initResponse();
     }
 
+    /**
+     * @OA\Post(
+     *     path="/categoria",
+     *     summary="Registro de categoria",
+     *     tags={"Categoria"},
+     *     description="Adiciona uma nova categoria.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *       @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(
+     *              @OA\Property(
+     *                  type="string",
+     *                  property="nome"
+     *              ),
+     *              @OA\Property(
+     *                  type="double",
+     *                  property="imposto"
+     *              ),
+     *          ),
+     *       ), 
+     *     ),
+     *     @OA\Response(response="200", description="Operação bem sucedida"),
+     *     @OA\Response(response="403", description="Acesso não autorizado")
+     * )
+     */
     public function index(): void
     {
         $cat = new Categoria();
@@ -37,6 +62,17 @@ class CategoriaController
         $this->success($add->getData());
     }
 
+    /**
+     * @OA\Get(
+     *     path="/categorias",
+     *     summary="Obter lista de todas categorias.",
+     *     tags={"Categoria"},
+     *     security={{"bearerAuth":{}}},
+     *     description="Retorna os dados de todas as categorias.",
+     *     @OA\Response(response="200", description="Operação bem sucedida"),
+     *     @OA\Response(response="403", description="Acesso não autorizado"),
+     * )
+     */
     public function getAll()
     {
         $cat = new Categoria();
@@ -45,19 +81,24 @@ class CategoriaController
         $this->success(multiObj($cat));
     }
 
-    public function getOne(Params $params)
-    {
-        $cat = new Categoria();
-        $cat = $cat->findById($params->id);
-
-        if (!$cat) {
-            $this->error("Categoria não encontrado");
-            exit;
-        }
-
-        $this->success($cat->getData());
-    }
-
+    /**
+     * @OA\Delete(
+     *     path="/categoria/{id}",
+     *     summary="Deletar categoria",
+     *     tags={"Categoria"},
+     *     description="Deletar uma categoria.",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID da categoria",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(response="200", description="Operação bem sucedida"),
+     *     @OA\Response(response="403", description="Acesso não autorizado")
+     * )
+     */
     public function delete(Params $params)
     {
         $cat = new Categoria();
@@ -69,32 +110,5 @@ class CategoriaController
         }
 
         $this->success();
-    }
-
-    public function edit(Params $params)
-    {
-        $cat = new Categoria();
-        $cat = $cat->findById($params->id);
-        
-        if (!$cat) {
-            $this->error("Categoria não encontrada");
-            exit;
-        }
-
-        if ($this->body->nome) {
-            $cat->nome = $this->body->nome;
-        }
-        if ($this->body->imposto) {
-            $cat->imposto = $this->body->imposto;
-        }
-
-        $edit = $cat->save();
-
-        if (!$edit) {
-            $this->error($cat->getError());
-            exit;
-        }
-
-        $this->success($edit->getData());
     }
 }
