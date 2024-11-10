@@ -19,7 +19,7 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   adminer:
     image: adminer
     container_name: expertCart-adminer
@@ -40,5 +40,3 @@ services:
     command: npm start
     depends_on:
       - db
-volumes:
-  postgres_data:
