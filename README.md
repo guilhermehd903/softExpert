@@ -1,11 +1,11 @@
 # softExpert
 Teste tecnico para vaga de PHP na empresa softexpert
 
-## começa aqui
+## começa aqui [REALIZAR EM ORDEM]
 - comand: git clone
 - comand: docker-compose up -d
 - comand: docker-compose exec php-apache composer update
-- ir ao arquivo .envTemplate e renomear o arquivo para .env
+- ir ao arquivo app/.Templateenv e renomear o arquivo para .env
 
 ## Endpoints uteis
 
