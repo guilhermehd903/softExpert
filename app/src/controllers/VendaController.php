@@ -98,6 +98,13 @@ class VendaController
      *     summary="Adicionar produto a venda",
      *     tags={"Venda"},
      *     description="Adiciona um produto ao carrinho",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="id da venda",
+     *         @OA\Schema(type="string")
+     *     ),
      *     security={{"bearerAuth":{}}},
      *     @OA\Response(response="200", description="Operação bem sucedida"),
      *     @OA\Response(response="403", description="Acesso não autorizado")
@@ -131,6 +138,13 @@ class VendaController
      *     summary="Remove produto da venda",
      *     tags={"Venda"},
      *     description="Remove um produto do carrinho",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="id da venda",
+     *         @OA\Schema(type="string")
+     *     ),
      *     security={{"bearerAuth":{}}},
      *     @OA\Response(response="200", description="Operação bem sucedida"),
      *     @OA\Response(response="403", description="Acesso não autorizado")
@@ -151,6 +165,13 @@ class VendaController
      *     summary="Edita produto da venda",
      *     tags={"Venda"},
      *     description="Edita um produto do carrinho",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="id da venda",
+     *         @OA\Schema(type="string")
+     *     ),
      *     security={{"bearerAuth":{}}},
      *     @OA\Response(response="200", description="Operação bem sucedida"),
      *     @OA\Response(response="403", description="Acesso não autorizado")
@@ -390,6 +411,13 @@ class VendaController
      *              @OA\Property(type="integer",property="open"),
      *          ),
      *       ), 
+     *     ),
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="id da venda",
+     *         @OA\Schema(type="string")
      *     ),
      *     @OA\Response(response="200", description="Operação bem sucedida"),
      *     @OA\Response(response="403", description="Acesso não autorizado")
