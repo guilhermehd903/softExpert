@@ -1,8 +1,0 @@
-DB_DRIVER="pgsql"
-DB_HOST="db"
-DB_PORT="5432"
-DB_NAME="mydb"
-DB_USER="myuser"
-DB_PASSWORD="mypassword"
-
-JWT_SECRET="supersecretoaqui"

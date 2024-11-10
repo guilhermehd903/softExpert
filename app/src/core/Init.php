@@ -1,6 +1,6 @@
 <?php
 
-use Softexpert\Mercado\Core\Router;
+use Softexpert\Mercado\core\Router;
 use Dotenv\Dotenv;
 use Softexpert\Mercado\middlewares\AuthMiddleware;
 use Softexpert\Mercado\middlewares\IsAdminMiddleware;
