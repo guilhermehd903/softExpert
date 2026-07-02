@@ -1,6 +1,3 @@
-# softExpert
-Teste técnico para vaga de PHP na empresa softexpert [PROD: http://api.wilgner.com/]
-
 ## começa aqui [REALIZAR EM ORDEM]
 - comand: git clone
 - comand: cd softExpert
